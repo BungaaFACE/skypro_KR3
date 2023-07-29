@@ -1,4 +1,4 @@
-from src.utils import get_json_data, sort_operations_by_data, print_last_operations
+from src.utils import get_json_data, sort_operations_by_date, filter_operations_by_executed, parse_operation_data
 
 OPERATIONS_FILE = "./src/operations.json"
 GET_OPERATIONS_NUMBER = 5
@@ -12,12 +12,15 @@ def main(operations_file, num_of_oper):
         num_of_oper (int): number of operations to display
     """
 
-    # Get operations from json
     operations_list = get_json_data(operations_file)
-    # Sort operations by date and time
-    sorted_operations = sort_operations_by_data(operations_list)
-    # Print last {num_of_oper} of operations
-    print_last_operations(sorted_operations, num_of_oper)
+    sorted_operations = sort_operations_by_date(operations_list)
+
+    # Filter operations by EXECUTED state
+    filtered_operations = filter_operations_by_executed(
+        sorted_operations, num_of_oper)
+
+    for operation in filtered_operations:
+        print(parse_operation_data(operation))
 
 
 if __name__ == "__main__":
