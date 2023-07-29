@@ -10,13 +10,12 @@ def get_json_data(filename: str):
         return json.load(json_data)
 
 
-def sort_operations_by_data(operations: list):
+def sort_operations_by_date(operations: list):
     """Function returns sorted operations by data and time
     Args: operations (list): list of operations
     Returns: (list): sorted operations
     """
 
-    # sort by date
     operations.sort(
         reverse=True,
         key=lambda operation: operation.get('date', '0'))
@@ -36,7 +35,6 @@ def parse_operation_data(operation: dict):
         .split('-')[::-1]
     date_str = '.'.join(date_list)
 
-    # Get operation description
     description = operation.get('description', 'Описание недоступно')
 
     # Define 'from' data
@@ -49,12 +47,10 @@ def parse_operation_data(operation: dict):
         from_card_type = 'Пополнение'
         cipher_from_card = 'вклада'
 
-    # Get 'to' data
     to_data = operation['to']
     to_card_type = ' '.join(to_data.split(' ')[:-1])
     cipher_to_card = f"**{to_data.split(' ')[-1][-4:]}"
 
-    # Get amount and currency of operation
     summ_str = f"{operation['operationAmount']['amount']} {operation['operationAmount']['currency']['name']}"
 
     return f"""{date_str} {description}
@@ -63,20 +59,17 @@ def parse_operation_data(operation: dict):
 """
 
 
-def print_last_operations(operations, oper_number=3):
+def filter_operations_by_executed(operations, oper_number=3):
     """Function searches for last {oper_number} executed operations
     Args:
         operations (list): list of sorted operations
         oper_number (int, optional): number of operations to print. Defaults to 3.
     """
 
-    printed = 0
-    # Iter oprations
+    filtered_operations = []
     for operation in operations:
         if operation["state"] == "EXECUTED":
-            # Print operation data
-            print(parse_operation_data(operation))
-            # if done => break iteration
-            printed += 1
-            if printed == oper_number:
+            filtered_operations.append(operation)
+            if len(filtered_operations) == oper_number:
                 break
+    return filtered_operations
