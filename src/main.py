@@ -1,4 +1,4 @@
-from utils import get_json_data, sort_operations_by_data, print_last_operations
+from src.utils import get_json_data, sort_operations_by_data, print_last_operations
 
 OPERATIONS_FILE = "./src/operations.json"
 GET_OPERATIONS_NUMBER = 5
