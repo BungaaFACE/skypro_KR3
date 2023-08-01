@@ -1,7 +1,6 @@
-import add_parent_dir_to_path
 from src.utils import get_json_data, sort_operations_by_date, filter_operations_by_executed, parse_operation_data
 
-OPERATIONS_FILE = './src/operations.json'
+OPERATIONS_FILE = "./src/operations.json"
 GET_OPERATIONS_NUMBER = 5
 
 
