@@ -1,4 +1,3 @@
-import add_parent_dir_to_path
 import src.utils as utils
 import json
 import pytest
