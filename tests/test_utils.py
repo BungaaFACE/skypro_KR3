@@ -1,8 +1,9 @@
 import src.utils as utils
 import json
 import pytest
+from pathlib import Path
 
-json_path = './src/operations.json'
+json_path = Path(__file__).parent.joinpath("operations.json")
 
 
 @pytest.fixture
